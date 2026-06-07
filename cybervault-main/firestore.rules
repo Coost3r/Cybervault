@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read access to all collections
+    match /{document=**} {
+      allow read: if true;
+    }
+    
+    // Feedback collection rules
+    match /feedback/{feedbackId} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'feedback']) &&
+                      request.resource.data.name is string &&
+                      request.resource.data.email is string &&
+                      request.resource.data.feedback is string;
+      allow update, delete: if false;
+    }
+
+    match /leaderboard/{scoreId} {
+      // Allow anyone to read and create leaderboard entries
+      allow read, create: if true;
+      
+      // Don't allow updates or deletions
+      allow update, delete: if false;
+    }
+  }
+}
