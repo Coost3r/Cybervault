@@ -1,4 +1,4 @@
-# CyberVault 🔒
+# CyberVault 
 
 A modern, interactive cybersecurity education platform built with React and Firebase. Learn about cybersecurity through an engaging, visually appealing interface.
 
